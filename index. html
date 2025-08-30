@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Галерея недвижимости</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; background: #f5f5f5; margin:0; padding:0; }
+    h1 { text-align:center; margin:20px 0; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      padding: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .gallery img:hover { transform: scale(1.05); }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.95);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+    }
+    .lightbox img {
+      max-width:90%; max-height:90%;
+      border-radius:12px;
+    }
+    .lightbox .close {
+      position: absolute;
+      top:20px; right:30px;
+      font-size:30px; color:white; cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Галерея недвижимости</h1>
+
+  <div class="gallery">
+    <!-- Вставь сюда свои фото -->
+    <img src="https://i.imgur.com/abc123.jpg" alt="">
+    <img src="https://i.imgur.com/def456.jpg" alt="">
+    <img src="https://i.imgur.com/ghi789.jpg" alt="">
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <span class="close" id="closeBtn">&times;</span>
+    <img src="" alt="">
+  </div>
+
+  <script>
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = lightbox.querySelector("img");
+    const closeBtn = document.getElementById("closeBtn");
+
+    document.querySelectorAll(".gallery img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightbox.style.display = "flex";
+        lightboxImg.src = img.src;
+      });
+    });
+
+    closeBtn.addEventListener("click", () => { lightbox.style.display = "none"; });
+    lightbox.addEventListener("click", e => {
+      if(e.target === lightbox) lightbox.style.display = "none";
+    });
+  </script>
+</body>
+</html>
